@@ -1,33 +1,64 @@
 #include<iostream>
-#include"main.h"
 using namespace std;
+
+#define NUM1 10
+#define NUM2 34
 
 int main(){
     //1.
-    const int a = 10, b = 6, c = 4, d = 22;
-    double result = a * (b + (c / 1.0 / d)); //Добавляем операцию с 1.0, что бы получить double
-    cout << result << endl;
+    int a = 9, b = 11;
+    if((a + b) >= 10 && (a + b) <= 20){
+        cout << "true" << endl;
+    } else{
+        cout << "false" << endl;
+    }
 
     //2.
-    int number = 41;
-    cout << (number - 21) * ((number > 21) ?  2 : 1) << endl;
+    bool flag = true;
+    int number = 24;
+    for(int i = number - 1; i > 1; --i){
+       if(number % i == 0){
+            flag = false;
+            break;
+       } 
+    }
+    if(flag){
+        cout << "Число " << number << " не является простым." << endl;
+    } else{
+        cout << "Число " << number << " является простым." << endl;
+    }
 
     //3.
-    extern int e, f, g, h;
-    double newResult = e * (f + (g / 1.0 / h)); //Добавляем операцию с 1.0, что бы получить double
-    cout << newResult << endl;
+    if(NUM1 == 10 || NUM2 == 10 || NUM1 + NUM2 == 10){
+        cout << true << endl;
+    } else {
+        cout << false << endl;
+    }
 
     //4.
-    int arr[3][3][3];
-    int val = 0;
-    for(int i = 0; i < 3; ++i){
-        for(int j = 0; j < 3; ++j){
-            for(int k = 0; k < 3; ++k){
-                arr[i][j][k] = val++;
+    int year = 1500;
+    int isBigYear = false;
+    if(year % 2 == 0){
+        if(year % 100 == 0){
+            if(year % 400 == 0){
+                isBigYear = true;
+            } else {
+                isBigYear = false;
             }
+        } else {
+            isBigYear = true;
         }
+    } else {
+        isBigYear = false;
     }
-    int* p = **arr;
-    cout << *(p + ((3 * 3) + (2 * 2))) << endl;
+
+    if(isBigYear){
+        cout << "Год " << year << " - високосный" << endl;
+    } else {
+        cout << "Год " << year << " - не является високосным" << endl;
+    }
+    
+
+
     return 0;
 }
