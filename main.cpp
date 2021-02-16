@@ -1,33 +1,50 @@
-#include<iostream>
-#include"main.h"
-using namespace std;
+#include"functions.h"
 
 int main(){
     //1.
-    const int a = 10, b = 6, c = 4, d = 22;
-    double result = a * (b + (c / 1.0 / d)); //Добавляем операцию с 1.0, что бы получить double
-    cout << result << endl;
+    int arr1[] = {0, 1, 1, 0, 1};
+    func::first = func::printArr;
+    func::first(arr1, 5);
+
+    func::first = func::changeArr;
+    func::first(arr1, 5);
+
+    func::first = func::printArr;
+    func::first(arr1, 5);
 
     //2.
-    int number = 41;
-    cout << (number - 21) * ((number > 21) ?  2 : 1) << endl;
+    int arr2[8];
+    func::second = func::fillArr;
+    func::second(arr2, 8);
+
+    func::second = func::printArr;
+    func::second(arr2, 8);
 
     //3.
-    extern int e, f, g, h;
-    double newResult = e * (f + (g / 1.0 / h)); //Добавляем операцию с 1.0, что бы получить double
-    cout << newResult << endl;
+    //[1, 1, 1, 2, 1]
+    //2, 1, 1, 2, 1
+    //[10, 1, 2, 3, 4]
+    int arr3[] = {1, 1, 1, 2, 1};
+    int arr4[] = {2, 1, 1, 2, 1};
+    int arr5[] = {10, 1, 2, 3, 4};
+    func::therd = func::checkBalance;
+
+    cout << "arr3 - " << func::therd(arr3, 5);
+    cout << "arr4 - " << func::therd(arr4, 5);
+    cout << "arr5 - " << func::therd(arr5, 5);
 
     //4.
-    int arr[3][3][3];
-    int val = 0;
-    for(int i = 0; i < 3; ++i){
-        for(int j = 0; j < 3; ++j){
-            for(int k = 0; k < 3; ++k){
-                arr[i][j][k] = val++;
-            }
-        }
-    }
-    int* p = **arr;
-    cout << *(p + ((3 * 3) + (2 * 2))) << endl;
+    cout << endl;
+    func::forth = func::shiftArr;
+    func::printArr(arr5, 5);
+    func::forth(arr5, 5, 31);
+    func::printArr(arr5, 5);
+    func::forth(arr5, 5, -2);
+    func::printArr(arr5, 5);
+
+    //5.
+    func::fyfth = func::changeVarArgs;
+    func::fyfth(5, 0, 1, 1, 0, 1);
+    
     return 0;
 }
