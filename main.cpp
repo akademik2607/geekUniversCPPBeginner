@@ -1,100 +1,46 @@
 #include<iostream>
-#include<fstream>
 using namespace std;
 
 //1.
-bool createFile(const char* fileName, const char* text){
-    ofstream file;
-    file.open(fileName, ios::out);
-    if(!file.is_open()) return false;
-    file << text;
-    file.close();
-    return true;
-}
+#define IS_RANGE(a, b) (((a) >= 0) && ((a) < (b))) 
 
 //2.
+#define ARR_ITEM(arr, row, col) *(*(arr + (row)) + (col))
 
-long getBuferSize(const char* fileName1, const char* fileName2){
-    ifstream file1, file2;
-    file1.open(fileName1, ios::in);
-    if(!file1.is_open()) {
-        return 0;
-    }
+//3.
+#define ARR_LENGTH(arr, type) (sizeof(arr) / sizeof(type))
 
-    file2.open(fileName2);
-    if(!file2.is_open()) {
-        file1.close();
-        return 0;
+void fillArr(int *arr[], int lenRow, int lenCol){
+    int number = 1;
+    for(int i = 0; i < lenRow; ++i){
+        for(int j = 0; j < lenCol; ++j, ++number){
+            arr[i][j] = number;
+        }
     }
-
-    long bufSize = 0;
-    char temp;
-    while(!file1.eof()){
-       file1.get(temp);
-       bufSize++;
-       cout << temp << endl;
-       cout << bufSize << endl;
-    }
-    while(!file2.eof()){
-       file2.get(temp);
-       bufSize++;
-    }
-    file1.close();
-    file2.close();
-    return bufSize;
+    cout << endl;
 }
-
-bool fileConcat(const char* fileName1, const char* fileName2, char buffer[]){
-    ifstream file1, file2;
-    file1.open(fileName1);
-    if(!file1.is_open()) {
-        return false;
-    }
-
-    file2.open(fileName2);
-    if(!file2.is_open()) {
-        file1.close();
-        return false;
-    }
-    int i;
-    char temp[2];
-    for(i = 0;!file1.eof(); ++i){
-        cout << i << endl;
-       file1.get(temp, 1);
-       cout << temp;
-       buffer[i] = temp[0];
-    }
-
-    cout << i << endl;
-    for(;!file2.eof(); ++i){
-       file2.get(temp, 1);
-       buffer[i] = temp[0];
-    }
-    cout << i << endl;
-    
-    file1.close();
-    file2.close();
-    return true;
-}
-
 
 int main(){
     //1.
-    if(!createFile("file1.txt", "sdfasdfaskfj;ajfkja askdfj hello sdjfa")){
-        return 1;    
-    }
-    if(!createFile("file2.txt", "a;sdjfjaskdfjasjdfj world asjdfjlajs;lkjf)")){
-            return 1;
-    }
+    cout << IS_RANGE(4, 10) << endl;
+    cout << IS_RANGE(4 + 3, 10) << endl;
+    cout << IS_RANGE(6, 4) << endl;
 
-    
     //2.
-    long bufSize = getBuferSize("file1.txt", "file2.txt");
-    cout << bufSize << endl;
-    char *buffer = new char[bufSize + 1];
-    fileConcat("file1.txt", "file2.txt", buffer);
-    cout << buffer << endl;
-    delete [] buffer;
+    int** arr = new int*[10];
+    for(int i = 0; i < 10; ++i){
+        arr[i] = new int[5];
+    }
+    fillArr(arr, 10, 5);
+    cout << ARR_ITEM(arr, 3, 4) << endl;
+    for(int i = 0; i < 10; ++i){
+        delete [] arr[i];
+    }
+    delete [] arr;
+
+    //3.
+    int arr3[67];
+    cout << ARR_LENGTH(arr3, int) << endl;
 
 
     return 0;
